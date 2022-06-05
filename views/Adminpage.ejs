@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/style.css">
+    <title>Document</title>
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+</head>
+<body >
+    <div class="container-fluid" style="padding: 0;">
+        <!-- Navbar -->
+        <nav class="navbar navbar-expand-lg bg-white shadow-sm rounded-3" style="margin-bottom : 15px;" id="navbar">
+            <img src="/images/logo.jpg" class="img-fluid logo" alt="">
+             <h3 style="color: red;">SBF</h4>   
+
+            <button class="navbar-toggler btn-outline-danger btn-sm-3" type="button" data-bs-toggle="collapse"
+                data-bs-target="#menu">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-list"
+                    viewBox="0 0 16 16">
+                    <path fill-rule="evenodd"
+                        d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z" />
+                </svg>
+            </button>
+            <div class="collapse navbar-collapse" id="menu">
+                <ul class="navbar-nav ms-auto mb-lg-0">
+                    <li class="nav-item">
+                        <a href="/addAdmin" class="nav-link my-color rounded-3 btn-outline-danger" style="font-weight:700 !important ;border: 3px solid red;">ADD ADMIN</a>
+                    </li>
+                  
+                </ul>
+            </div>
+        </nav>
+    <div class="row cards" style="margin: 0;">
+        <div class="card card-1 col-lg-4" >
+            <h1>Total number of messages</h1>
+            <h1 class="card__title "><%= feedback.length %></h1>
+            
+        </div> 
+        <div class="card card-2 col-lg-4">
+            <h1 class="card__title"><%= feedback.length %></h1>
+            
+        </div>
+    </div> 
+   
+    
+                <div class="msg-description" id="ie" style="display: none;" > 
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat est nemo consequatur eos incidunt id veritatis deserunt illo, accusamus quam optio explicabo, dolorum similique praesentium facere deleniti tenetur possimus maiores.
+                </div>
+        </div>
+         
+    </div>
+    <% for (var i =0; i < feedback.length;  i++ ) { %>
+    <div class="col-sm-8 col-lg-8 mx-auto" >
+        <div>
+            <div class="msg-click" style="width:inherit" >
+                <div style="display: flex; align-items: center; margin-left:10px ;flex-grow: 2;" onclick="cme(this)"  >
+                            
+                            <div>
+                                <h2><%= feedback[i].name.toUpperCase() %></h2>
+                                <p><%= feedback[i].email %></p>
+                            </div>
+                </div>
+                
+                <div class="feed-btn">
+                <a href="mailto:19itr002@gmail.com" class="btn btn-warning my-1">Reply</a> 
+                 <form action= ""  class="my-1" method="">
+                     <button class="btn btn-danger" value="<%= feedback[i]._id %>" type="submit" onclick="deletefeed(this)" >Delete</button>
+                </form>
+                </div>      
+            </div>
+                <div class="msg-description" id="ie" style="display: none;transition: all 10s;" >
+                    <h4> <%= feedback[i].subject %> </h4>
+                      <p> <%= feedback[i].message %> </p>
+                </div>
+        </div>
+         
+    </div>
+<% } %>
+
+
+    <script>
+         function cme(e) {
+          //  console.log(e.parentNode.parentNode.childNodes[3]);
+            var x = e.parentNode.parentNode.childNodes[3];
+            if (x.style.display === "none") {
+                x.classList.toggle("mystyle");
+                x.style.display = "block";
+                
+            } else {
+                x.style.display = "none";
+            }
+           
+         }
+
+        function deletefeed(e){
+            event.preventDefault();
+            console.log(e.value)
+          let url = `/deleteFeedback/${e.value}`;
+          $.ajax({
+              method: "GET",
+              url: url
+          }).done(function(msg) {
+            setTimeout(()=>window.location.reload(),100)
+             
+          }).fail(function(err, textstatus, error) {
+              $('span').text(textstatus);
+          });
+          
+        }
+
+//       $(document).ready(function() {
+//       $('form').on('submit', function(event) {
+//           event.preventDefault();
+//           console.log(event.data)
+//         //   let url = `/deleteFeedback/${jn}`;
+//         //   $.ajax({
+//         //       method: "GET",
+//         //       url: url
+//         //   }).done(function(msg) {
+//         //       console.log("success")
+             
+//         //   }).fail(function(err, textstatus, error) {
+//         //       $('span').text(textstatus);
+//         //   });
+//       });
+//   });
+
+    </script>
+</body>
+</html>

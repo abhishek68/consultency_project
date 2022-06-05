@@ -1,0 +1,133 @@
+
+
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@500&family=Poppins:wght@300;500&display=swap');
+html, body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    height: 100%;
+    width: 100%;
+    font-family: 'Open Sans', sans-serif;
+font-family: 'Poppins', sans-serif;
+    scroll-behavior: smooth !important;
+}
+
+#home{
+    background: #00B4DB;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #0083B0, #00B4DB);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to right, #0083B0, #00B4DB); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+}
+/* nav bar */
+
+#navbar {
+    position: sticky;
+    top: 0;
+    left: 0;
+    z-index:200 !important;
+}
+
+.logo {
+    width: 4%;
+    height: 4% ;
+}
+
+.nav-link {
+    font-size: 18px !important;
+    font-weight: lighter;
+}
+
+li {
+    padding: 10px;
+}
+
+.navbar{
+    padding:0 !important;
+    
+}
+.nav-link {
+    font-size: 15px;
+    font-weight: bold;
+    color: red !important;
+}
+
+.nav-link:hover {
+    color: white !important;
+    transition: .1s;
+    background: red!important;
+    box-shadow:0 0 7px 2px rgba(0, 0, 0, 0.2);
+}
+  /* CARDS */
+ *{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  }
+.cards{
+   justify-content: center;
+}
+  .card {
+    margin: 20px;
+    padding: 20px;
+    width: 500px;
+    min-height: 200px;
+    border-radius: 10px;
+    box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.25);
+    transition: all 0.2s;
+    text-align: center;
+  }
+  
+  .card:hover {
+    box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.4);
+    transform: scale(1.01);
+  }
+  
+  
+  .card__title {
+    grid-row: 3/4;
+    font-weight: 400;
+    color: #ffffff;
+  }
+   
+  .card-1 {
+    background: radial-gradient(#1fe4f5, #3fbafe);
+  }
+  
+  .card-2{
+    background: radial-gradient(#f588d8, #c0a3e5);
+  }
+  
+
+ .msg-click{
+     margin: 10px 0 10px 0;
+     display: flex;
+     justify-content: space-between;
+     align-items: center;
+     background: radial-gradient(#76b2fe, #b69efe);
+     color: #ffffff;
+    }
+
+    .msg-click h2,p{
+         margin:0 0 0 10px;
+    }
+    .msg-click p{
+        color: rgb(113, 104, 104);
+        font-weight: bolder;
+    }
+    
+   .btn{
+       margin-right: 10px;
+   } 
+
+  .mystyle{
+      transition: all 5s;
+  }
+
+  .feed-btn{
+      display: flex;
+  }
+  @media only screen and (max-width: 600px) {
+    .feed-btn{
+      display: block;
+    }
+  }
