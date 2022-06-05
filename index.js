@@ -7,6 +7,7 @@ const feedback = require('./models/feedback')
 const franchise = require('./models/franchise')
 const bcrypt = require('bcrypt');
 const user  = require("./models/user")
+const hi = "hi";
 app.use(express.urlencoded({ extended: true }));
 app.set('view engine','ejs');
 app.use(express.static(__dirname + '/public'));
