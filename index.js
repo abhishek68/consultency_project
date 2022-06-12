@@ -7,7 +7,7 @@ const feedback = require('./models/feedback')
 const franchise = require('./models/franchise')
 const bcrypt = require('bcrypt');
 const user  = require("./models/user")
-const hi = "hi";
+
 app.use(express.urlencoded({ extended: true }));
 app.set('view engine','ejs');
 app.use(express.static(__dirname + '/public'));
@@ -86,15 +86,7 @@ app.get('/adminLogin',(req,res) => {
  })
 
     app.post('/newAdmin',async (req,res) => {
-        try{
-            const salt = await bcrypt.genSalt();
-            const hasedPassword = await bcrypt.hash(req.body.pass,salt);
-            const newAdmin = { email: req.body.email,password : hasedPassword};
-            await user.create(newAdmin)
-            res.render('Adminpage.ejs');
-        }catch{
-            res.status(500).send();
-        }
+      
     })
     
     app.post("/login",async (req,res) => {
@@ -130,14 +122,16 @@ app.get('/addAdmin',(req,res)=>{
             console.log(err);
         }
 })
-app.post('/addAdmin',(req,res)=>{
-       try{
-       
-       }
-       catch(err)
-       {
-
-       }
+app.post('/addAdmin',async(req,res)=>{
+    try{
+        const salt = await bcrypt.genSalt();
+        const hasedPassword = await bcrypt.hash(req.body.pass,salt);
+        const newAdmin = { email: req.body.email,password : hasedPassword,userName:req.body.userName};
+        await user.create(newAdmin)
+        res.render('Adminpage.ejs');
+     }catch{
+        res.status(500).send();
+    }
 })
 app.listen(3000,()=>connectToDB ()
     .then((data)=>console.log("server is running"))
