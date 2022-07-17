@@ -15,38 +15,26 @@
         <div class="container p-5">
             <div class="header">
               <h2>Create Account</h2>
+              <h3 style="color: red;"><%= msg %></h3>
             </div>
             <form id="form" class="form">
               <div class="form-control">
                 <label for="username">Email</label>
-                <input type="email" placeholder="" id="email" />
+                <input required type="email" placeholder="" name="email" id="email" />
                 <i class="fas fa-check-circle"></i>
                 <i class="fas fa-exclamation-circle"></i>
                 <small>Error message</small>
               </div>
               <div class="form-control">
                 <label for="username">Password</label>
-                <input type="password" placeholder="" id="password" />
+                <input required type="password" placeholder="" name="password" id="password" />
                 <i class="fas fa-check-circle"></i>
                 <i class="fas fa-exclamation-circle"></i>
                 <small>Error message</small>
-              </div>
-              <div class="form-control">
-                <label for="username">Password check</label>
-                <input type="password" placeholder="re-enter" id="password2" />
-                <i class="fas fa-check-circle"></i>
-                <i class="fas fa-exclamation-circle"></i>
-                <small>Error message</small>
-              </div>
-              
-              <nav>
-                <ul>
-                  <li>
-                    home
-                    <span></span><span></span><span></span><span></span>
-                  </li>
-                  </ul>
-                  </nav>
+               </div>
+               <center>              
+              <button type="submit" class="btn-lg btn-dark ">Create</button>
+            </center>
             </form>
           </div>
           

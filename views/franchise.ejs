@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/style.css">
+    <title>Admin Page</title>
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <link rel="stylesheet" href="/home.css">
+  <style>
+      body {
+  padding-top: 20px;
+}
+
+.card-deck {
+  margin: 0 -15px;
+  justify-content: space-between;
+}
+
+.card-deck .card {
+  margin: 0 0 1rem;
+}
+
+@media (min-width: 576px) and (max-width: 767.98px) {
+  .card-deck .card {
+    -ms-flex: 0 0 48.7%;
+    flex: 0 0 48.7%;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 991.98px) {
+  .card-deck .card {
+    -ms-flex: 0 0 32%;
+    flex: 0 0 32%;
+  }
+}
+
+@media (min-width: 992px)
+{
+  .card-deck .card {
+    -ms-flex: 0 0 24%;
+    flex: 0 0 24%;
+  }
+}
+
+  </style>
+</head>
+<body >
+    <div class="container-fluid">
+        <nav class="navbar navbar-expand-lg bg-white shadow-sm rounded-3" id="navbar">
+            <img src="/images/logo.jpg" class="img-fluid logo" alt="">
+             <h3 style="color: red;">SBF</h4>   
+
+            <button class="navbar-toggler btn-outline-danger btn-sm-3" type="button" data-bs-toggle="collapse"
+                data-bs-target="#menu">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-list"
+                    viewBox="0 0 16 16">
+                    <path fill-rule="evenodd"
+                        d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z" />
+                </svg>
+            </button>
+            <div class="collapse navbar-collapse" id="menu">
+                <ul class="navbar-nav ms-auto mb-lg-0">
+                    <li class="nav-item">
+                        <a href="#contact-us" class="nav-link my-color rounded-3">Franchise List</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        </div>
+        <div class="container">
+        <section>
+        <div class="row m-5">
+            <% for( i=0;i<franc.length;i++) { %>
+            <div class="col-lg-6">
+                <div class="card-deck">
+          
+                    <div class="card">
+                      
+                      <div class="card-body">
+                        <h5 class="card-title">Name : <%= franc[i].name %></h5>
+                        <p class="card-text">Age : <%= franc[i].age %></p>
+                        <p class="card-text">E mail: <%= franc[i].email %></p>
+                        <p class="card-text">Number: <%= franc[i].number %></p>
+                        <p class="card-text">State: <%= franc[i].state %></p>
+                        <p class="card-text">City: <%= franc[i].city %></p>
+                        <p class="card-text">Address: <%= franc[i].address %></p>
+                        <p class="card-text">pin code: <%= franc[i].pincode %></p>
+                        <a href="mailto:19itr002@gmail.com" class="btn btn-warning my-1">Reply</a> 
+                        <form action= ""  class="my-1" method="">
+                            <button class="btn btn-danger" value="<%= franc[i]._id %>" type="submit" onclick="deletefeed(this)" >Delete</button>
+                       </form>                    
+                          <script>
+                              
+        function deletefeed(e){
+            event.preventDefault();
+            console.log(e.value)
+          let url = `/deleteFranc/${e.value}`;
+          $.ajax({
+              method: "GET",
+              url: url
+          }).done(function(msg) {
+            setTimeout(()=>window.location.reload(),100)
+             
+          }).fail(function(err, textstatus, error) {
+              $('span').text(textstatus);
+          });
+          
+        }
+                          </script>
+                      </div>
+                    </div>
+                   
+                    
+                  </div>
+            </div>
+           <% } %> 
+          
+        </div>
+        </div>
+    </section>
+      </div>
+</body>
+</html>

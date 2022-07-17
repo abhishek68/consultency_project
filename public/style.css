@@ -65,6 +65,7 @@ li {
   }
 .cards{
    justify-content: center;
+   
 }
   .card {
     margin: 20px;
@@ -91,12 +92,29 @@ li {
    
   .card-1 {
     background: radial-gradient(#1fe4f5, #3fbafe);
+  
   }
   
   .card-2{
     background: radial-gradient(#f588d8, #c0a3e5);
+    animation-name: example;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+    
+    z-index: 5 !important;
   }
   
+  @keyframes example {
+    from {    width: 250px;
+             
+            }
+    to {    width: 300px;
+          
+        }
+  }
+  
+  /* The element to apply the animation to */
+ 
 
  .msg-click{
      margin: 10px 0 10px 0;
@@ -126,6 +144,11 @@ li {
   .feed-btn{
       display: flex;
   }
+
+  /* .msg-description{
+      
+  } */
+
   @media only screen and (max-width: 600px) {
     .feed-btn{
       display: block;

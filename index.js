@@ -7,11 +7,11 @@ const feedback = require('./models/feedback')
 const franchise = require('./models/franchise')
 const bcrypt = require('bcrypt');
 const user  = require("./models/user")
-
+const session = require('express-session')
 app.use(express.urlencoded({ extended: true }));
 app.set('view engine','ejs');
 app.use(express.static(__dirname + '/public'));
-
+app.use(session({secret:'key'}))
 // fornt page
 app.get('/',(req,res)=>{
         res.render('home.ejs');
@@ -55,6 +55,7 @@ app.post('/feedback',async(req,res)=>{
 })
 // franchise 
 app.get('/franchise',(req,res)=>{
+    
           try{
                   res.render('getfranchise.ejs')
           }
@@ -62,7 +63,15 @@ app.get('/franchise',(req,res)=>{
           {
               res.send(err);
           }
+    }
+   
+)
+
+app.get('/logout',(req,res)=>{
+    req.session.destroy();
+    res.redirect("/adminLogin");
 })
+
 app.post('/franchise',async(req,res)=>{
        try{
              
@@ -78,7 +87,8 @@ app.post('/franchise',async(req,res)=>{
 })
 // admin
 app.get('/adminLogin',(req,res) => {
-        res.render('adminlogin.ejs')
+        
+        res.render('adminlogin.ejs',{msg:null})
  })
 
  app.get('/adminSignup',(req,res) => {
@@ -92,12 +102,14 @@ app.get('/adminLogin',(req,res) => {
     app.post("/login",async (req,res) => {
         const person = await user.findOne({email:req.body.email});   
         const data  = await feedback.find({});
+        const franc  = await franchise.find({});
+        console.log(franc)
         try{
-            await bcrypt.compare(req.body.pass,person.password)
-            res.render('Adminpage.ejs',{feedback : data});
+             if(await bcrypt.compare(req.body.pass,person.password))
+                  res.render('Adminpage.ejs',{feedback : data,franc : franc});
            
         }catch{
-                console.log("not allowed")
+            res.render('adminlogin.ejs',{msg:"Incorrect Password or Email"})
                 //res.send('Not Allowed');
         }
     })
@@ -114,24 +126,52 @@ app.get('/adminLogin',(req,res) => {
     })
 // newAdmin
 app.get('/addAdmin',(req,res)=>{
+    
         try{
-                    res.render('addAdmin.ejs')
+                    res.render('addAdmin.ejs',{msg : null})
         }
         catch(err)
         {
             console.log(err);
         }
+    
 })
 app.post('/addAdmin',async(req,res)=>{
     try{
         const salt = await bcrypt.genSalt();
-        const hasedPassword = await bcrypt.hash(req.body.pass,salt);
-        const newAdmin = { email: req.body.email,password : hasedPassword,userName:req.body.userName};
+        const hasedPassword = await bcrypt.hash(req.body.password,salt);
+        const newAdmin = {email: req.body.email,password : hasedPassword};
+        console.log(req.body)
         await user.create(newAdmin)
-        res.render('Adminpage.ejs');
-     }catch{
+        res.render('addAdmin.ejs',{msg : "Account Created"});
+     }catch(err){
+         console.log(err);
         res.status(500).send();
     }
+})
+
+//Franchise
+app.get('/viewFranchise',async(req,res)=>{
+    try{
+          const franc=await franchise.find({})
+
+              console.log(franc)
+                res.render('franchise.ejs',{franc});
+    }
+    catch(err)
+    {
+        console.log(err);
+    }
+})
+app.get("/deleteFranc/:id",async (req,res)=>{
+      
+    await franchise.deleteOne( {_id : req.params.id})
+
+    franchise.find({},function(err,data){
+        console.log(data)    
+        res.render('franchise.ejs',{franc:data});
+    })
+ 
 })
 app.listen(3000,()=>connectToDB ()
     .then((data)=>console.log("server is running"))

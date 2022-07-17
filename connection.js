@@ -4,6 +4,6 @@ const connectToDB = async()=>moongoose.connect("mongodb+srv://ak:ak@cluster0.v7o
     useNewUrlParser:true,
    
     useUnifiedTopology:true,
-});
+}).then(() => console.log("DB connected"));
 
 module.exports  = connectToDB 
